@@ -109,7 +109,6 @@ def Place_bid(request):
 def User_comment(request):
     pass
 
-@login_required
 def User_watchlist(request):
     show_products = Watchlist.objects.filter(user = request.user)
     if show_products:
@@ -121,7 +120,7 @@ def User_watchlist(request):
             'message': 'Empty'
         })
 
-@login_required
+
 def addWatchlist(request, id):
     q = Auction.objects.get(id = id)
     Watchlist.objects.create(user = request.user, product_id = q)

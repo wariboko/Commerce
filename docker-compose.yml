@@ -4,11 +4,9 @@ services:
   db:
     image: nouchka/sqlite3
     environment:
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-    
+      - SQLITE3_DB=sqlite3
+      - SQLITE3_USER=sqlite3
+      - SQLITE_PASSWORD=sqlite3
   web:
     build: .
     command: python manage.py runserver 0.0.0.0:8000

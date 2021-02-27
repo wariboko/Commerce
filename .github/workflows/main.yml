@@ -40,7 +40,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: wariboko/Commerce:latest
+          tags: wariboko/commerce:latest
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}

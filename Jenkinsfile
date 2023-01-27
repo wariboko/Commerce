@@ -1,10 +1,28 @@
 /* Requires the Docker Pipeline plugin */
 pipeline {
-    agent { docker { image 'python:3.10.7-alpine' } }
+    agent any
     stages {
-        stage('build') {
+        
+        stage('Install Dependencies') {
             steps {
-                sh 'python3 manage.py runserver'
+                sh 'pip install -r requirements.txt'
+            }
+        }
+        stage('Run Tests') {
+            steps {
+                sh 'python manage.py test'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'python manage.py collectstatic --noinput'
+                sh 'python manage.py makemigrations'
+                sh 'python manage.py migrate'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh 'python manage.py runserver'
             }
         }
     }
